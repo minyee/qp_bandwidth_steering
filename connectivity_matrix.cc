@@ -305,7 +305,7 @@ void read_ETM_from_file(std::string filename, std::vector< std::vector<double> >
 	int64_t index = 0;
 	int64_t row = 0;
 	int64_t col = 0;
-	std::cout << "The matrix size is: " << std::to_string(matrix_size) << std::endl;
+	
 	for (int64_t i = 0; i < matrix_size; i++) {
 		std::vector<double> row_entries;
 		for (int64_t j = 0; j < matrix_size; j++) {
@@ -316,17 +316,15 @@ void read_ETM_from_file(std::string filename, std::vector< std::vector<double> >
 	//file_stream >> matrix_size;
 	//std::cout << "testing second entry " << std::to_string(matrix_size) << std::endl;
 	while (!file_stream.eof()) {
-		std::cout << "Current iteration: " << std::to_string(index) << std::endl;
+		
 		file_stream >> entry;
-		std::cout << "Current entry: " << std::to_string(entry) << std::endl;
+		
 		row = index / matrix_size;
 		col = index % matrix_size;
 		std::vector<double>& row_entries = traffic_matrix[row];
 		row_entries[col] = entry;
 		index++;
 	}
-
-	cout << "index is: " << to_string(index) << endl;
 	assert(index == (matrix_size * matrix_size));
 	file_stream.close();
 };
@@ -341,7 +339,6 @@ void massage_matrix(std::vector<std::vector<double>>& traffic_matrix) {
 			traffic_matrix[i][j] = (traffic_matrix[i][j] / sum) * ((traffic_matrix.size() - 1));
 		}
 	}
-	cout << "Print64_ting matrix" << endl;
 	for (auto row : traffic_matrix) {
 		cout << endl;
 		for (auto entry : row) {

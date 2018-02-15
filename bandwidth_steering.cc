@@ -259,15 +259,7 @@ void optimize_allocation(int64_t num_groups, optimization_parameters* opt_params
     alglib::minqpsetquadraticterm(state, opt_params->A);
     alglib::minqpsetlinearterm(state, opt_params->b);
     alglib::minqpsetlc(state, opt_params->C, opt_params->ct);
-    std::cout << "CIBAI HERE LA" << std::endl;
-    for (int64_t i = 0; i < traffic_matrix.size(); i++) {
-		auto vect = traffic_matrix[i];
-		for (int64_t j = 0; j < vect.size(); j++) {
-			std::cout << std::to_string(vect[j]) << std::endl;
-		}
-		std::cout << std::endl;
-	}
-	std::cout << "ENDED HERE LA CIBAI" << std::endl;
+
     // Set scale of the parameters.
     // It is strongly recommended that you set scale of your variables.
     // Knowing their scales is essential for evaluation of stopping criteria
