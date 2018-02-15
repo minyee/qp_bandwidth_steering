@@ -34,7 +34,7 @@ inline bool row_inrange(int64_t index, int64_t group, int64_t num_groups) {
 	return index >= group * num_groups && index < (group + 1) * num_groups ? true : false;
 };	
 
-void configure_constraint64_ts_individual(int64_t num_groups, 
+void configure_constraints_individual(int64_t num_groups, 
 								optimization_parameters* opt_params, 
 								std::string& C_str, 
 								std::string& d_str,
@@ -71,7 +71,7 @@ void configure_constraint64_ts_individual(int64_t num_groups,
  * This happens to be the same as the
  * NOTE: THIS HAS TO BE CALLED BEFORE configure_constraint64_ts_cols
  **/
-void configure_constraint64_ts_rows(int64_t num_groups, 
+void configure_constraints_rows(int64_t num_groups, 
 								optimization_parameters* opt_params, 
 								std::string& C_str, 
 								std::string& d_str) {
@@ -117,7 +117,7 @@ void configure_constraint64_ts_rows(int64_t num_groups,
 	}
 };
 
-void configure_constraint64_ts_cols(int64_t num_groups, 
+void configure_constraints_cols(int64_t num_groups, 
 								optimization_parameters* opt_params, 
 								std::string& C_str, 
 								std::string& d_str,
@@ -190,10 +190,10 @@ void configure_constraints(int64_t num_groups,
 							std::vector<std::vector<double>>& traffic_matrix) {
 	C_str += "[";
 	d_str += "[";
-	configure_constraint64_ts_individual(num_groups, opt_params, C_str, d_str, traffic_matrix);
-	configure_constraint64_ts_rows(num_groups, opt_params, C_str, d_str);
-	configure_constraint64_ts_cols(num_groups, opt_params, C_str, d_str, traffic_matrix);
-	int64_t num_constraint64_ts = 2 * num_groups;
+	configure_constraints_individual(num_groups, opt_params, C_str, d_str, traffic_matrix);
+	configure_constraints_rows(num_groups, opt_params, C_str, d_str);
+	configure_constraints_cols(num_groups, opt_params, C_str, d_str, traffic_matrix);
+	int64_t num_constraints = 2 * num_groups;
 	/*
 	for (int64_t i = 0; i < num_constraint64_ts; i++) {
 		if (i < num_constraint64_ts - 1) 
